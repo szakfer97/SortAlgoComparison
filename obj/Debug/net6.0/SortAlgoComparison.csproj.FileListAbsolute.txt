@@ -1,0 +1,15 @@
+C:\Users\szakf\MyProjects\SortAlgoComparison\bin\Debug\net6.0\SortAlgoComparison.exe
+C:\Users\szakf\MyProjects\SortAlgoComparison\bin\Debug\net6.0\SortAlgoComparison.deps.json
+C:\Users\szakf\MyProjects\SortAlgoComparison\bin\Debug\net6.0\SortAlgoComparison.runtimeconfig.json
+C:\Users\szakf\MyProjects\SortAlgoComparison\bin\Debug\net6.0\SortAlgoComparison.dll
+C:\Users\szakf\MyProjects\SortAlgoComparison\bin\Debug\net6.0\SortAlgoComparison.pdb
+C:\Users\szakf\MyProjects\SortAlgoComparison\obj\Debug\net6.0\SortAlgoComparison.csproj.AssemblyReference.cache
+C:\Users\szakf\MyProjects\SortAlgoComparison\obj\Debug\net6.0\SortAlgoComparison.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\szakf\MyProjects\SortAlgoComparison\obj\Debug\net6.0\SortAlgoComparison.AssemblyInfoInputs.cache
+C:\Users\szakf\MyProjects\SortAlgoComparison\obj\Debug\net6.0\SortAlgoComparison.AssemblyInfo.cs
+C:\Users\szakf\MyProjects\SortAlgoComparison\obj\Debug\net6.0\SortAlgoComparison.csproj.CoreCompileInputs.cache
+C:\Users\szakf\MyProjects\SortAlgoComparison\obj\Debug\net6.0\SortAlgoComparison.dll
+C:\Users\szakf\MyProjects\SortAlgoComparison\obj\Debug\net6.0\refint\SortAlgoComparison.dll
+C:\Users\szakf\MyProjects\SortAlgoComparison\obj\Debug\net6.0\SortAlgoComparison.pdb
+C:\Users\szakf\MyProjects\SortAlgoComparison\obj\Debug\net6.0\SortAlgoComparison.genruntimeconfig.cache
+C:\Users\szakf\MyProjects\SortAlgoComparison\obj\Debug\net6.0\ref\SortAlgoComparison.dll
