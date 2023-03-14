@@ -46,6 +46,9 @@
                         } while (x < 0);
                         list = new int[x];
                         break;
+                    default:
+                        Console.Clear();
+                        break;
                 }
             } while (select != 0);
         }
@@ -87,7 +90,7 @@
             return maxIndex;
         }
 
-        public static void swap(int[] arr, int m, int n)
+        public static void Swap(int[] arr, int m, int n)
         {
             int tmp = arr[m];
             arr[m] = arr[n];
@@ -100,7 +103,7 @@
             do
             {
                 int biggest = FindMax(list, last);
-                swap(list, biggest, last);
+                Swap(list, biggest, last);
                 last--;
             } while (last > 0);
             return;
@@ -128,7 +131,7 @@
                 for (int j = 0; j < i; j++)
                 {
                     if (list[j] > list[j + 1])
-                        swap(list, j, j + 1);
+                        Swap(list, j, j + 1);
                 }
             }
         }
@@ -145,8 +148,8 @@
             int split = low;
             for (int i = low; i < high - 1; i++)
                 if (a[i] < pivot)
-                    swap(a, i, split++);
-            swap(a, high - 1, split);
+                    Swap(a, i, split++);
+            Swap(a, high - 1, split);
             QuickSortRecursive(a, low, split);
             QuickSortRecursive(a, split + 1, high);
             return;
@@ -164,7 +167,7 @@
                     highMark--;
                 if (lowMark > highMark)
                     return highMark;
-                swap(arr, lowMark, highMark);
+                Swap(arr, lowMark, highMark);
             }
         }
     }
