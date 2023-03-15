@@ -9,40 +9,44 @@
         public static void Main(string[] args)
         {
             Console.WriteLine("Enter the initial array size:");
-            int x = int.Parse(Console.ReadLine());
+            int x = int.Parse(Console.ReadLine()!);
             int[] list = new int[x];
             int select;
             do
             {
                 Console.WriteLine("Make a selection:");
-                Console.WriteLine("\t1: Insertion Sort");
-                Console.WriteLine("\t2: Selection Sort");
-                Console.WriteLine("\t3: Bubble Sort");
+                Console.WriteLine("\t1: Bubble Sort");
+                Console.WriteLine("\t2: Insertion Sort");
+                Console.WriteLine("\t3: Selection Sort");
                 Console.WriteLine("\t4: Quick Sort");
-                Console.WriteLine($"\t5: Change the array size. Currently {x}");
+                Console.WriteLine("\t5: Merge Sort");
+                Console.WriteLine($"\t6: Change the array size. Currently {x}");
                 Console.WriteLine("\t0: Quit");
                 Console.Write("You choose: ");
-                select = int.Parse(Console.ReadLine());
+                select = int.Parse(Console.ReadLine()!);
                 FillRandom(list, x);
                 switch (select)
                 {
                     case 1:
-                        ShowSortingTimes("Insertion Sort", InsertionSort, list);
+                        ShowSortingTimes("Bubble Sort", BubbleSort, list);
                         break;
                     case 2:
-                        ShowSortingTimes("Selection Sort", SelectionSort, list);
+                        ShowSortingTimes("Insertion Sort", InsertionSort, list);
                         break;
                     case 3:
-                        ShowSortingTimes("Bubble Sort", BubbleSort, list);
+                        ShowSortingTimes("Selection Sort", SelectionSort, list);
                         break;
                     case 4:
                         ShowSortingTimes("Quick Sort", QuickSort, list);
                         break;
                     case 5:
+                        ShowSortingTimes("Merge Sort", MergeSort, list);
+                        break;
+                    case 6:
                         do
                         {
                             Console.WriteLine("New array size: ");
-                            x = int.Parse(Console.ReadLine());
+                            x = int.Parse(Console.ReadLine()!);
                         } while (x < 0);
                         list = new int[x];
                         break;
@@ -97,16 +101,16 @@
             arr[n] = tmp;
         }
 
-        public static void SelectionSort(int[] list)
+        public static void BubbleSort(int[] list)
         {
-            int last = list.Length - 1;
-            do
+            for (int i = list.Length - 1; i > 0; i--)
             {
-                int biggest = FindMax(list, last);
-                Swap(list, biggest, last);
-                last--;
-            } while (last > 0);
-            return;
+                for (int j = 0; j < i; j++)
+                {
+                    if (list[j] > list[j + 1])
+                        Swap(list, j, j + 1);
+                }
+            }
         }
 
         public static void InsertionSort(int[] list)
@@ -124,21 +128,21 @@
             }
         }
 
-        public static void BubbleSort(int[] list)
+        public static void SelectionSort(int[] list)
         {
-            for (int i = list.Length - 1; i > 0; i--)
+            int last = list.Length - 1;
+            do
             {
-                for (int j = 0; j < i; j++)
-                {
-                    if (list[j] > list[j + 1])
-                        Swap(list, j, j + 1);
-                }
-            }
+                int biggest = FindMax(list, last);
+                Swap(list, biggest, last);
+                last--;
+            } while (last > 0);
+            return;
         }
 
-        public static void QuickSort(int[] a)
+        public static void QuickSort(int[] list)
         {
-            QuickSortRecursive(a, 0, a.Length);
+            QuickSortRecursive(list, 0, list.Length);
         }
 
         public static void QuickSortRecursive(int[] a, int low, int high)
@@ -155,20 +159,74 @@
             return;
         }
 
-        public static int Partition(int[] arr, int x)
+        public static void MergeSort(int[] list)
         {
-            int lowMark = 0, highMark = arr.Length - 1;
+            SortMerge(list);
+        }
 
-            while (true)
+        public static int[] SortMerge(int[] array)
+        {
+            int[] left;
+            int[] right;
+            int[] result = new int[array.Length];
+            if (array.Length <= 1)
+                return array;
+            int midPoint = array.Length / 2;
+            left = new int[midPoint];
+            if (array.Length % 2 == 0)
+                right = new int[midPoint];
+            else
+                right = new int[midPoint + 1];
+            for (int i = 0; i < midPoint; i++)
+                left[i] = array[i];
+            int x = 0;
+            for (int i = midPoint; i < array.Length; i++)
             {
-                while (lowMark < arr.Length && arr[lowMark] <= x)
-                    lowMark++;
-                while (highMark >= 0 && arr[highMark] > x)
-                    highMark--;
-                if (lowMark > highMark)
-                    return highMark;
-                Swap(arr, lowMark, highMark);
+                right[x] = array[i];
+                x++;
             }
+            left = SortMerge(left);
+            right = SortMerge(right);
+            result = Merge(left, right);
+            return result;
+        }
+
+        public static int[] Merge(int[] left, int[] right)
+        {
+            int resultLength = right.Length + left.Length;
+            int[] result = new int[resultLength];
+            int indexLeft = 0, indexRight = 0, indexResult = 0;
+            while (indexLeft < left.Length || indexRight < right.Length)
+            {
+                if (indexLeft < left.Length && indexRight < right.Length)
+                {
+                    if (left[indexLeft] <= right[indexRight])
+                    {
+                        result[indexResult] = left[indexLeft];
+                        indexLeft++;
+                        indexResult++;
+                    }
+                    else
+                    {
+                        result[indexResult] = right[indexRight];
+                        indexRight++;
+                        indexResult++;
+                    }
+                }
+                else if (indexLeft < left.Length)
+                {
+                    result[indexResult] = left[indexLeft];
+                    indexLeft++;
+                    indexResult++;
+                }
+                else if (indexRight < right.Length)
+                {
+                    result[indexResult] = right[indexRight];
+                    indexRight++;
+                    indexResult++;
+                }
+            }
+            return result;
         }
     }
 }
