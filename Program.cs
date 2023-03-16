@@ -146,10 +146,10 @@
 
         public static void QuickSort(int[] list)
         {
-            QuickSortRecursive(list, 0, list.Length);
+            SortQuick(list, 0, list.Length);
         }
 
-        public static void QuickSortRecursive(int[] a, int low, int high)
+        public static void SortQuick(int[] a, int low, int high)
         {
             if (high - low <= 1) return;
             int pivot = a[high - 1];
@@ -158,8 +158,8 @@
                 if (a[i] < pivot)
                     Swap(a, i, split++);
             Swap(a, high - 1, split);
-            QuickSortRecursive(a, low, split);
-            QuickSortRecursive(a, split + 1, high);
+            SortQuick(a, low, split);
+            SortQuick(a, split + 1, high);
             return;
         }
 
