@@ -20,7 +20,8 @@
                 Console.WriteLine("\t3: Selection Sort");
                 Console.WriteLine("\t4: Quick Sort");
                 Console.WriteLine("\t5: Merge Sort");
-                Console.WriteLine($"\t6: Change the array size. Currently {x}");
+                Console.WriteLine("\t6: Radix Sort");
+                Console.WriteLine($"\t7: Change the array size. Currently {x}");
                 Console.WriteLine("\t0: Quit");
                 Console.Write("You choose: ");
                 select = int.Parse(Console.ReadLine()!);
@@ -43,6 +44,9 @@
                         ShowSortingTimes("Merge Sort", MergeSort, list);
                         break;
                     case 6:
+                        ShowSortingTimes("Radix Sort", RadixSort, list);
+                        break;
+                    case 7:
                         do
                         {
                             Console.WriteLine("New array size: ");
@@ -187,11 +191,11 @@
             }
             left = SortMerge(left);
             right = SortMerge(right);
-            result = Merge(left, right);
+            result = MergeArrays(left, right);
             return result;
         }
 
-        public static int[] Merge(int[] left, int[] right)
+        public static int[] MergeArrays(int[] left, int[] right)
         {
             int resultLength = right.Length + left.Length;
             int[] result = new int[resultLength];
@@ -227,6 +231,27 @@
                 }
             }
             return result;
+        }
+
+        public static void RadixSort(int[] list)
+        {
+            {
+                int i, j;
+                int[] tmp = new int[list.Length];
+                for (int shift = 31; shift > -1; --shift)
+                {
+                    j = 0;
+                    for (i = 0; i < list.Length; ++i)
+                    {
+                        bool move = (list[i] << shift) >= 0;
+                        if (shift == 0 ? !move : move)
+                            list[i - j] = list[i];
+                        else
+                            tmp[j++] = list[i];
+                    }
+                    Array.Copy(tmp, 0, list, list.Length - j, j);
+                }
+            }
         }
     }
 }
