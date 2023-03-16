@@ -2,9 +2,9 @@
 {
     class Program
     {
-        public delegate void SortMethod(int[] list);
+        private static Random rnd = new Random();
 
-        public static Random rnd = new Random();
+        private delegate void SortMethod(int[] list);
 
         public static void Main(string[] args)
         {
@@ -21,7 +21,8 @@
                 Console.WriteLine("\t4: Quick Sort");
                 Console.WriteLine("\t5: Merge Sort");
                 Console.WriteLine("\t6: Radix Sort");
-                Console.WriteLine($"\t7: Change the array size. Currently {x}");
+                Console.WriteLine("\t7: Heap Sort");
+                Console.WriteLine($"\t8: Change the array size. Currently {x}");
                 Console.WriteLine("\t0: Quit");
                 Console.Write("You choose: ");
                 select = int.Parse(Console.ReadLine()!);
@@ -47,6 +48,9 @@
                         ShowSortingTimes("Radix Sort", RadixSort, list);
                         break;
                     case 7:
+                        ShowSortingTimes("Heap Sort", HeapSort, list);
+                        break;
+                    case 8:
                         do
                         {
                             Console.WriteLine("New array size: ");
@@ -61,7 +65,7 @@
             } while (select != 0);
         }
 
-        public static void ShowSortingTimes(String methodName, SortMethod method, int[] list)
+        private static void ShowSortingTimes(String methodName, SortMethod method, int[] list)
         {
             double sortTime;
             Console.WriteLine($"{methodName} of {list.Length} items:");
@@ -72,7 +76,7 @@
             Console.WriteLine($"\t{sortTime} seconds for a sorted list\n");
         }
 
-        public static double GetSortingTime(SortMethod method, int[] list)
+        private static double GetSortingTime(SortMethod method, int[] list)
         {
             int startTime, stopTime;
             startTime = Environment.TickCount;
@@ -81,13 +85,13 @@
             return (stopTime - startTime) / 1000.0;
         }
 
-        public static void FillRandom(int[] arr, int max)
+        private static void FillRandom(int[] arr, int max)
         {
             for (int i = 0; i < arr.Length; i++)
                 arr[i] = rnd.Next(max + 1);
         }
 
-        public static int FindMax(int[] arr, int last)
+        private static int FindMax(int[] arr, int last)
         {
             int maxIndex = 0;
             for (int i = 1; i <= last; i++)
@@ -98,14 +102,14 @@
             return maxIndex;
         }
 
-        public static void Swap(int[] arr, int m, int n)
+        private static void Swap(int[] arr, int m, int n)
         {
             int tmp = arr[m];
             arr[m] = arr[n];
             arr[n] = tmp;
         }
 
-        public static void BubbleSort(int[] list)
+        private static void BubbleSort(int[] list)
         {
             for (int i = list.Length - 1; i > 0; i--)
             {
@@ -117,7 +121,7 @@
             }
         }
 
-        public static void InsertionSort(int[] list)
+        private static void InsertionSort(int[] list)
         {
             for (int i = 1; i < list.Length; i++)
             {
@@ -132,7 +136,7 @@
             }
         }
 
-        public static void SelectionSort(int[] list)
+        private static void SelectionSort(int[] list)
         {
             int last = list.Length - 1;
             do
@@ -144,12 +148,12 @@
             return;
         }
 
-        public static void QuickSort(int[] list)
+        private static void QuickSort(int[] list)
         {
             SortQuick(list, 0, list.Length);
         }
 
-        public static void SortQuick(int[] a, int low, int high)
+        private static void SortQuick(int[] a, int low, int high)
         {
             if (high - low <= 1) return;
             int pivot = a[high - 1];
@@ -163,12 +167,12 @@
             return;
         }
 
-        public static void MergeSort(int[] list)
+        private static void MergeSort(int[] list)
         {
             SortMerge(list);
         }
 
-        public static int[] SortMerge(int[] array)
+        private static int[] SortMerge(int[] array)
         {
             int[] left;
             int[] right;
@@ -195,7 +199,7 @@
             return result;
         }
 
-        public static int[] MergeArrays(int[] left, int[] right)
+        private static int[] MergeArrays(int[] left, int[] right)
         {
             int resultLength = right.Length + left.Length;
             int[] result = new int[resultLength];
@@ -233,7 +237,7 @@
             return result;
         }
 
-        public static void RadixSort(int[] list)
+        private static void RadixSort(int[] list)
         {
             {
                 int i, j;
@@ -251,6 +255,38 @@
                     }
                     Array.Copy(tmp, 0, list, list.Length - j, j);
                 }
+            }
+        }
+
+        private static void HeapSort(int[] list)
+        {
+            int n = list.Length;
+            for (int i = n / 2 - 1; i >= 0; i--)
+                MaxHeap(list, n, i);
+            for (int i = n - 1; i >= 0; i--)
+            {
+                int temp = list[0];
+                list[0] = list[i];
+                list[i] = temp;
+                MaxHeap(list, i, 0);
+            }
+        }
+
+        private static void MaxHeap(int[] list, int n, int i)
+        {
+            int largest = i;
+            int left = 2 * i + 1;
+            int right = 2 * i + 2;
+            if (left < n && list[left] > list[largest])
+                largest = left;
+            if (right < n && list[right] > list[largest])
+                largest = right;
+            if (largest != i)
+            {
+                int temp = list[i];
+                list[i] = list[largest];
+                list[largest] = temp;
+                MaxHeap(list, n, largest);
             }
         }
     }
