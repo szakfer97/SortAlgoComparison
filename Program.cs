@@ -22,7 +22,8 @@
                 Console.WriteLine("\t5: Merge Sort");
                 Console.WriteLine("\t6: Radix Sort");
                 Console.WriteLine("\t7: Heap Sort");
-                Console.WriteLine($"\t8: Change the array size. Currently {x}");
+                Console.WriteLine("\t8: Bogo Sort");
+                Console.WriteLine($"\t9: Change the array size. Currently {x}");
                 Console.WriteLine("\t0: Quit");
                 Console.Write("You choose: ");
                 select = int.Parse(Console.ReadLine()!);
@@ -51,6 +52,9 @@
                         ShowSortingTimes("Heap Sort", HeapSort, list);
                         break;
                     case 8:
+                        ShowSortingTimes("Bogo Sort", BogoSort, list);
+                        break;
+                    case 9:
                         do
                         {
                             Console.WriteLine("New array size: ");
@@ -287,6 +291,37 @@
                 list[i] = list[largest];
                 list[largest] = temp;
                 MaxHeap(list, n, largest);
+            }
+        }
+
+        private static void BogoSort(int[] list)
+        {
+            while (!IsSorted(list))
+            {
+                ShuffleElements(list);
+            }
+        }
+
+        private static bool IsSorted(int[] list)
+        {
+            for (int i = 1; i < list.Length; i++)
+            {
+                if (list[i] < list[i - 1])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private static void ShuffleElements(int[] list)
+        {
+            for (int i = 0; i < list.Length; i++)
+            {
+                int j = rnd.Next(i, list.Length);
+                int temp = list[i];
+                list[i] = list[j];
+                list[j] = temp;
             }
         }
     }
