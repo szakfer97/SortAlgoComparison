@@ -15,15 +15,15 @@
             do
             {
                 Console.WriteLine("Make a selection:");
-                Console.WriteLine("\t1: Bubble Sort");
-                Console.WriteLine("\t2: Insertion Sort");
-                Console.WriteLine("\t3: Selection Sort");
-                Console.WriteLine("\t4: Quick Sort");
-                Console.WriteLine("\t5: Merge Sort");
-                Console.WriteLine("\t6: Radix Sort");
-                Console.WriteLine("\t7: Heap Sort");
-                Console.WriteLine("\t8: Bogo Sort");
-                Console.WriteLine($"\t9: Change the array size. Currently {x}");
+                Console.WriteLine($"\t1: Change the array size. Currently {x}");
+                Console.WriteLine("\t2: Bubble Sort");
+                Console.WriteLine("\t3: Insertion Sort");
+                Console.WriteLine("\t4: Selection Sort");
+                Console.WriteLine("\t5: Quick Sort");
+                Console.WriteLine("\t6: Merge Sort");
+                Console.WriteLine("\t7: Radix Sort");
+                Console.WriteLine("\t8: Heap Sort");
+                Console.WriteLine("\t9: Bogo Sort");
                 Console.WriteLine("\t0: Quit");
                 Console.Write("You choose: ");
                 select = int.Parse(Console.ReadLine()!);
@@ -31,36 +31,36 @@
                 switch (select)
                 {
                     case 1:
-                        ShowSortingTimes("Bubble Sort", BubbleSort, list);
-                        break;
-                    case 2:
-                        ShowSortingTimes("Insertion Sort", InsertionSort, list);
-                        break;
-                    case 3:
-                        ShowSortingTimes("Selection Sort", SelectionSort, list);
-                        break;
-                    case 4:
-                        ShowSortingTimes("Quick Sort", QuickSort, list);
-                        break;
-                    case 5:
-                        ShowSortingTimes("Merge Sort", MergeSort, list);
-                        break;
-                    case 6:
-                        ShowSortingTimes("Radix Sort", RadixSort, list);
-                        break;
-                    case 7:
-                        ShowSortingTimes("Heap Sort", HeapSort, list);
-                        break;
-                    case 8:
-                        ShowSortingTimes("Bogo Sort", BogoSort, list);
-                        break;
-                    case 9:
                         do
                         {
                             Console.WriteLine("New array size: ");
                             x = int.Parse(Console.ReadLine()!);
                         } while (x < 0);
                         list = new int[x];
+                        break;
+                    case 2:
+                        ShowSortingTimes("Bubble Sort", BubbleSort, list);
+                        break;
+                    case 3:
+                        ShowSortingTimes("Insertion Sort", InsertionSort, list);
+                        break;
+                    case 4:
+                        ShowSortingTimes("Selection Sort", SelectionSort, list);
+                        break;
+                    case 5:
+                        ShowSortingTimes("Quick Sort", QuickSort, list);
+                        break;
+                    case 6:
+                        ShowSortingTimes("Merge Sort", MergeSort, list);
+                        break;
+                    case 7:
+                        ShowSortingTimes("Radix Sort", RadixSort, list);
+                        break;
+                    case 8:
+                        ShowSortingTimes("Heap Sort", HeapSort, list);
+                        break;
+                    case 9:
+                        ShowSortingTimes("Bogo Sort", BogoSort, list);
                         break;
                     default:
                         Console.Clear();
