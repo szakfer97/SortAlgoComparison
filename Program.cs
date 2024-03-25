@@ -8,76 +8,60 @@
 
         public static void Main(string[] args)
         {
-            Console.WriteLine("Enter the initial array size:");
-            int x = int.Parse(Console.ReadLine()!);
-            int[] list = new int[x];
+            int arraySize = ReadValidNumber("Enter the initial array size:");
+            int[] list = new int[arraySize];
             int select;
             do
             {
+                Console.Clear();
                 Console.WriteLine("Make a selection:");
-                Console.WriteLine($"\t1: Change the array size. Currently {x}");
-                Console.WriteLine("\t2: Bubble Sort");
-                Console.WriteLine("\t3: Insertion Sort");
-                Console.WriteLine("\t4: Selection Sort");
-                Console.WriteLine("\t5: Quick Sort");
-                Console.WriteLine("\t6: Merge Sort");
-                Console.WriteLine("\t7: Radix Sort");
-                Console.WriteLine("\t8: Heap Sort");
-                Console.WriteLine("\t9: Bogo Sort");
-                Console.WriteLine("\t0: Quit");
-                Console.Write("You choose: ");
-                select = int.Parse(Console.ReadLine()!);
-                FillRandom(list, x);
-                switch (select)
+                Console.WriteLine($"1: Change the array size. Currently {arraySize}");
+                Console.WriteLine("2: Bubble Sort");
+                Console.WriteLine("3: Insertion Sort");
+                Console.WriteLine("4: Selection Sort");
+                Console.WriteLine("5: Quick Sort");
+                Console.WriteLine("6: Merge Sort");
+                Console.WriteLine("7: Radix Sort");
+                Console.WriteLine("8: Heap Sort");
+                Console.WriteLine("9: Bogo Sort");
+                Console.WriteLine("0: Quit");
+                select = ReadValidNumber("You choose:");
+                if (select == 1)
                 {
-                    case 1:
-                        do
-                        {
-                            Console.WriteLine("New array size: ");
-                            x = int.Parse(Console.ReadLine()!);
-                        } while (x < 0);
-                        list = new int[x];
-                        break;
-                    case 2:
-                        ShowSortingTimes("Bubble Sort", BubbleSort, list);
-                        break;
-                    case 3:
-                        ShowSortingTimes("Insertion Sort", InsertionSort, list);
-                        break;
-                    case 4:
-                        ShowSortingTimes("Selection Sort", SelectionSort, list);
-                        break;
-                    case 5:
-                        ShowSortingTimes("Quick Sort", QuickSort, list);
-                        break;
-                    case 6:
-                        ShowSortingTimes("Merge Sort", MergeSort, list);
-                        break;
-                    case 7:
-                        ShowSortingTimes("Radix Sort", RadixSort, list);
-                        break;
-                    case 8:
-                        ShowSortingTimes("Heap Sort", HeapSort, list);
-                        break;
-                    case 9:
-                        ShowSortingTimes("Bogo Sort", BogoSort, list);
-                        break;
-                    default:
-                        Console.Clear();
-                        break;
+                    arraySize = ReadValidNumber("New array size:");
+                    list = new int[arraySize];
+                }
+                else if (select >= 2 && select <= 9)
+                {
+                    FillRandom(list, arraySize);
+                    SortMethod[] methods = { BubbleSort, InsertionSort, SelectionSort, QuickSort, MergeSort, RadixSort, HeapSort, BogoSort };
+                    ShowSortingTimes($"{methods[select - 2].Method.Name}", methods[select - 2], list);
+                    Console.WriteLine("Press any key to continue.");
+                    Console.ReadKey();
                 }
             } while (select != 0);
         }
 
+        private static int ReadValidNumber(string message)
+        {
+            int result;
+            do
+            {
+                Console.Write(message);
+            } while (!int.TryParse(Console.ReadLine(), out result));
+            return result;
+        }
+
         private static void ShowSortingTimes(String methodName, SortMethod method, int[] list)
         {
-            double sortTime;
+            int count = 10000;
             Console.WriteLine($"{methodName} of {list.Length} items:");
-            FillRandom(list, 10000);
-            sortTime = GetSortingTime(method, list);
-            Console.WriteLine($"\t{sortTime} seconds for a scrambled list");
-            sortTime = GetSortingTime(method, list);
-            Console.WriteLine($"\t{sortTime} seconds for a sorted list\n");
+            FillRandom(list, count);
+            double sortedTime = GetSortingTime(method, list);
+            Console.WriteLine($"\t{sortedTime} seconds for a scrambled list");
+            Array.Sort(list);
+            double sortedSortTime = GetSortingTime(method, list);
+            Console.WriteLine($"\t{sortedSortTime} seconds for a sorted list\n");
         }
 
         private static double GetSortingTime(SortMethod method, int[] list)
